@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Duolingo Clone - Enhanced UI with Sounds & Animations</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: #fff;
+      padding: 20px;
+    }
+    .container {
+      background: #2e7d32;
+      border-radius: 16px;
+      padding: 30px 40px;
+      width: 360px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+    header {
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      user-select: none;
+      color: #a5d6a7;
+      text-shadow: 0 0 6px #81c784;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      background: #81c784;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+    .progress {
+      height: 100%;
+      background: #c8e6c9;
+      width: 0%;
+      transition: width 0.5s ease;
+      border-radius: 10px 0 0 10px;
+    }
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      text-align: center;
+      line-height: 1.4;
+      user-select: none;
+      min-height: 70px;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+    .choices {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px 0;
+      width: 100%;
+    }
+    .choices li {
+      background: #66bb6a;
+      margin: 10px 0;
+      padding: 14px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1rem;
+      user-select: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: background 0.3s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .choices li:hover:not(.correct):not(.incorrect) {
+      background: #81c784;
+      transform: scale(1.03);
+    }
+    .choices li.correct {
+      background: #2e7d32;
+      box-shadow: 0 0 12px #a5d6a7;
+      cursor: default;
+    }
+    .choices li.incorrect {
+      background: #d32f2f;
+      box-shadow: 0 0 12px #ef9a9a;
+      cursor: default;
+    }
+    .choices li.correct::after,
+    .choices li.incorrect::after {
+      content: '';
+      position: absolute;
+      right: 15px;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .choices li.correct::after {
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23a5d6a7" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17l-3.88-3.88-1.41 1.41L9 19 20.3 7.7l-1.41-1.41z"/></svg>');
+    }
+    .choices li.incorrect::after {
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23ef9a9a" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18.3 5.71l-1.41-1.41L12 9.59 7.11 4.7 5.7 6.11 10.59 11 5.7 15.89l1.41 1.41L12 12.41l4.89 4.89 1.41-1.41L13.41 11z"/></svg>');
+    }
+    button {
+      background: #1b5e20;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      color: #a5d6a7;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.15s;
+      user-select: none;
+      align-self: center;
+      min-width: 140px;
+    }
+    button:hover:not(:disabled) {
+      background: #43a047;
+      transform: scale(1.05);
+      color: #e8f5e9;
+    }
+    button:disabled {
+      background: #4caf50aa;
+      cursor: not-allowed;
+      box-shadow: none;
+      color: #c8e6c9;
+    }
+    .score {
+      font-size: 1.1rem;
+      margin-top: 15px;
+      font-weight: 600;
+      user-select: none;
+    }
+    /* Results screen */
+    .results {
+      text-align: center;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .results h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #c8e6c9;
+      text-shadow: 0 0 6px #81c784;
+      user-select: none;
+    }
+    .results p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes slideUpFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-slide {
+      animation: slideUpFadeIn 0.5s ease forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .container {
+        width: 90vw;
+        padding: 20px;
+      }
+      .question {
+        font-size: 1.1rem;
+      }
+      .choices li {
+        font-size: 1rem;
+        padding: 12px 16px;
+      }
+      button {
+        padding: 12px 28px;
+        font-size: 1rem;
+        min-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="app">
+    <header>Duolingo Clone</header>
+    <div class="progress-bar" aria-label="Progress">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div id="quiz-container">
+      <!-- Quiz content injected here -->
+    </div>
+  </div>
+
+  <audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+  <audio id="incorrect-sound" src="https://actions.google.com/sounds/v1/cartoon/boing.ogg" preload="auto"></audio>
+
+  <script>
+    const quizData = [
+      {
+        question: "What is the Spanish word for 'apple'?",
+        choices: ["Manzana", "Pera", "Naranja", "Plátano"],
+        correct: 0
+      },
+      {
+        question: "Translate 'Hello' to French.",
+        choices: ["Bonjour", "Au revoir", "Merci", "Salut"],
+        correct: 0
+      },
+      {
+        question: "What does 'Danke' mean in German?",
+        choices: ["Please", "Thank you", "Sorry", "Hello"],
+        correct: 1
+      },
+      {
+        question: "Translate 'Cat' to Italian.",
+        choices: ["Cane", "Gatto", "Topo", "Uccello"],
+        correct: 1
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const app = document.getElementById('quiz-container');
+    const progressBar = document.getElementById('progress');
+    const correctSound = document.getElementById('correct-sound');
+    const incorrectSound = document.getElementById('incorrect-sound');
+
+    // Typing effect function
+    function typeText(element, text, speed = 30) {
+      element.textContent = '';
+      let i = 0;
+      return new Promise(resolve => {
+        function type() {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          } else {
+            resolve();
+          }
+        }
+        type();
+      });
+    }
+
+    async function loadQuestion() {
+      const currentQuestion = quizData[currentQuestionIndex];
+      let choicesHtml = '';
+      currentQuestion.choices.forEach((choice, index) => {
+        choicesHtml += `<li data-index="${index}" tabindex="0" role="button" aria-pressed="false">${choice}</li>`;
+      });
+
+      app.innerHTML = `
+        <div class="question" role="heading" aria-level="2"></div>
+        <ul class="choices" role="list">${choicesHtml}</ul>
+        <button id="next-btn" disabled aria-disabled="true">Next</button>
+        <div class="score" aria-live="polite">Score: ${score} / ${quizData.length}</div>
+      `;
+
+      updateProgress();
+
+      const questionEl = app.querySelector('.question');
+      await typeText(questionEl, currentQuestion.question);
+
+      // Animate choices
+      const choicesEls = document.querySelectorAll('.choices li');
+      choicesEls.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.classList.add('fade-slide');
+        }, i * 100);
+      });
+
+      const nextBtn = document.getElementById('next-btn');
+
+      choicesEls.forEach(choiceEl => {
+        choiceEl.addEventListener('click', () => handleAnswer(choiceEl, nextBtn, choicesEls, currentQuestion));
+        choiceEl.addEventListener('keydown', (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleAnswer(choiceEl, nextBtn, choicesEls, currentQuestion);
+          }
+        });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+          loadQuestion();
+        } else {
+          showResults();
+        }
+      });
+    }
+
+    function handleAnswer(choiceEl, nextBtn, choicesEls, currentQuestion) {
+      if (!nextBtn.disabled) return; // prevent multiple answers
+
+      const selectedIndex = parseInt(choiceEl.dataset.index);
+      if (selectedIndex === currentQuestion.correct) {
+        choiceEl.classList.add('correct');
+        correctSound.currentTime = 0;
+        correctSound.play();
+        score++;
+      } else {
+        choiceEl.classList.add('incorrect');
+        incorrectSound.currentTime = 0;
+        incorrectSound.play();
+        choicesEls[currentQuestion.correct].classList.add('correct');
+      }
+
+      choicesEls.forEach(el => {
+        el.setAttribute('aria-pressed', 'false');
+        el.style.pointerEvents = 'none'; // disable all choices
+      });
+      choiceEl.setAttribute('aria-pressed', 'true');
+
+      nextBtn.disabled = false;
+      nextBtn.setAttribute('aria-disabled', 'false');
+
+      updateScore();
+    }
+
+    function updateScore() {
+      const scoreEl = document.querySelector('.score');
+      scoreEl.textContent = `Score: ${score} / ${quizData.length}`;
+    }
+
+    function updateProgress() {
+      const progressPercent = ((currentQuestionIndex) / quizData.length) * 100;
+      progressBar.style.width = progressPercent + '%';
+    }
+
+    function showResults() {
+      progressBar.style.width = '100%';
+      app.innerHTML = `
+        <div class="results" role="region" aria-live="polite">
+          <h2>Quiz Completed!</h2>
+          <p>Your final score is <strong>${score}</strong> out of <strong>${quizData.length}</strong>.</p>
+          <button id="restart-btn">Restart Quiz</button>
+        </div>
+      `;
+
+      document.getElementById('restart-btn').addEventListener('click', () => {
+        currentQuestionIndex = 0;
+        score = 0;
+        loadQuestion();
+      });
+    }
+
+    // Initialize
+    loadQuestion();
+  </script>
+
+</body>
+</html>

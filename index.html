@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linguify - Language Learning Quiz</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <h1>Linguify</h1>
+            </div>
+            <nav class="main-nav">
+                <button id="language-selector-btn" class="nav-button">
+                    <span class="current-language">English</span>
+                    <span class="dropdown-icon">▼</span>
+                </button>
+                <button id="toggle-theme-btn" class="nav-button">
+                    <span class="icon">🌙</span>
+                </button>
+            </nav>
+        </header>
+
+        <main class="app-main">
+            <!-- Translation Interface -->
+            <section id="translation-view" class="app-view">
+                <div class="translation-container">
+                    <h2>Quick Translation</h2>
+                    <div class="translation-input">
+                        <textarea id="translate-text" placeholder="Enter text to translate..."></textarea>
+                        <select id="translate-language">
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ja">Japanese</option>
+                        </select>
+                        <button id="translate-btn" class="primary-button">Translate</button>
+                    </div>
+                    <div class="translation-output">
+                        <p id="translated-text"></p>
+                        <button id="speak-btn" class="secondary-button" disabled>
+                            <span class="icon">🔊</span> Listen
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Welcome/Dashboard View -->
+            <section id="dashboard-view" class="app-view active-view">
+                <div class="dashboard-header">
+                    <h2>Welcome back!</h2>
+                    <p class="streak-counter"><span id="streak-count">0</span> day streak</p>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-value" id="mastered-words">0</div>
+                        <div class="stat-label">Words Mastered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-score">0</div>
+                        <div class="stat-label">Total Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="quiz-accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                </div>
+
+                <div class="level-selection">
+                    <h3>Choose a level:</h3>
+                    <div class="level-buttons">
+                        <button class="level-btn" data-level="beginner">Beginner</button>
+                        <button class="level-btn" data-level="intermediate">Intermediate</button>
+                        <button class="level-btn" data-level="advanced">Advanced</button>
+                    </div>
+                </div>
+
+                <div class="language-selection hidden" id="language-dropdown">
+                    <h3>Select Language</h3>
+                    <ul class="language-list">
+                        <li data-lang="spanish" class="selected">Spanish</li>
+                        <li data-lang="french">French</li>
+                        <li data-lang="german">German</li>
+                        <li data-lang="italian">Italian</li>
+                        <li data-lang="portuguese">Portuguese</li>
+                        <li data-lang="japanese">Japanese</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Quiz View -->
+            <section id="quiz-view" class="app-view">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="quiz-progress-fill"></div>
+                        </div>
+                        <div class="progress-text"><span id="current-question">1</span>/<span id="total-questions">10</span></div>
+                    </div>
+                    <div class="quiz-score">Score: <span id="current-score">0</span></div>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question-container">
+                        <p class="question-prompt" id="question-prompt">Translate this word:</p>
+                        <h2 class="question-text" id="question-text">¿Cómo estás?</h2>
+                    </div>
+
+                    <div class="options-container" id="options-container">
+                        <!-- Options will be dynamically generated here -->
+                    </div>
+
+                    <div class="feedback-container hidden" id="feedback-container">
+                        <div class="feedback-content">
+                            <div class="feedback-icon" id="feedback-icon">✓</div>
+                            <div class="feedback-text" id="feedback-text">Correct!</div>
+                            <div class="feedback-explanation" id="feedback-explanation"></div>
+                        </div>
+                        <button id="next-question-btn" class="primary-button">Next Question</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results View -->
+            <section id="results-view" class="app-view">
+                <div class="results-container">
+                    <h2 class="results-header">Quiz Complete!</h2>
+                    <div class="results-summary">
+                        <div class="result-score">
+                            <div class="score-circle">
+                                <span id="final-score-percent">0%</span>
+                            </div>
+                            <p>Your Score</p>
+                        </div>
+                        <div class="results-stats">
+                            <div class="result-stat">
+                                <span class="stat-label">Correct Answers:</span>
+                                <span class="stat-value" id="correct-answers">0</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="stat-label">Total Questions:</span>
+                                <span class="stat-value" id="completed-questions">0</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="stat-label">New Words Learned:</span>
+                                <span class="stat-value" id="new-words">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="results-actions">
+                        <button id="review-btn" class="secondary-button">Review Mistakes</button>
+                        <button id="home-btn" class="primary-button">Back to Home</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>© 2025 Linguify - Learn languages with fun!</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/languages.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/translator.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

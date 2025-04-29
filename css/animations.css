@@ -1,0 +1,68 @@
+/* Fade animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Apply animations */
+.app-view {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.feedback-container {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.option-button:active {
+  transform: scale(0.98);
+}
+
+/* Progress bar animation */
+.progress-fill {
+  transition: width 0.3s ease-out;
+}
+
+/* Feedback animations */
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.feedback-icon {
+  animation: popIn 0.3s ease-out;
+}
+
+/* Button hover effects */
+.level-btn, .primary-button, .secondary-button {
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.level-btn:hover, .primary-button:hover, .secondary-button:hover {
+  transform: translateY(-2px);
+}
