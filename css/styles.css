@@ -334,7 +334,7 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
   position: absolute;
-  top: 100%;
+  top: 12%;
   right: 1rem;
   min-width: 200px;
   z-index: 1000;
