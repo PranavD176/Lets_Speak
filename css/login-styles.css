@@ -95,6 +95,7 @@
 .login-button {
   background: var(--primary-color);
   color: white;
+  width: 100%;
   padding: 1rem;
   border: none;
   border-radius: var(--border-radius);
@@ -104,6 +105,13 @@
   transition: all 0.3s ease;
 }
 
+.login-button a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .svg-icon {
   width: 20px;
   height: 20px;

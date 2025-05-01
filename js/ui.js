@@ -145,3 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+const log = document.querySelector(".login-button");
+document.addEventListener("click",()=>{
+  document.href="index.html";
+})
