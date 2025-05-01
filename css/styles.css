@@ -382,6 +382,29 @@ body {
   color: white;
 }
 
+/* Shared styles for quiz-score and progress-text */
+.quiz-score,
+.progress-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  
+  background: linear-gradient(90deg,  #4A90E2, #6C63FF);
+  padding: 10px 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: inline-block;
+  margin-top: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-score:hover,
+.progress-text:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
 /* Footer */
 .app-footer {
   padding: 1.5rem;
@@ -672,4 +695,22 @@ body {
   .dashboard-header h2 {
     font-size: 1.75rem;
   }
+}
+
+#home-btn a {
+  color: white; /* Set the font color to white */
+  text-decoration: none; /* Removes underline */
+}
+
+#home-btn a:hover {
+  color: #f0f0f0; /* Optional: Slightly lighter color on hover */
+}
+
+#review-btn a {
+  color: white; /* Set the font color to white */
+  text-decoration: none; /* Removes underline */
+}
+
+#review-btn a:hover {
+  color: #f0f0f0; /* Optional: Slightly lighter color on hover */
 }
