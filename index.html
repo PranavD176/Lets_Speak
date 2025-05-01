@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
-    <div class="app-container">
+    <div id="top-section" class="app-container">
         <header class="app-header">
             <div class="logo">
                 <img src="./assets/duolingo.svg" alt="duolingo" >
@@ -62,7 +62,7 @@
 
             <!-- Welcome/Dashboard View -->
             <section id="dashboard-view" class="app-view active-view">
-                <div class="dashboard-header">
+                <div id="welcome" class="dashboard-header">
                     <h2>Welcome back!</h2>
                     <p class="streak-counter"><span id="streak-count">0</span> day streak</p>
                 </div>
@@ -119,7 +119,7 @@
                 <div class="quiz-container">
                     <div class="question-container">
                         <p class="question-prompt" id="question-prompt">Translate this word:</p>
-                        <h2 class="question-text" id="question-text">¿Cómo estás?</h2>
+                        <h2 class="question-text" id="question-text">Select Level First</h2>
                     </div>
 
                     <div class="options-container" id="options-container">
@@ -164,8 +164,8 @@
                         </div>
                     </div>
                     <div class="results-actions">
-                        <button id="review-btn" class="secondary-button">Review Mistakes</button>
-                        <button id="home-btn" class="primary-button">Back to Home</button>
+                        <button id="review-btn" class="secondary-button"><a href="#welcome">Review Mistakes</a></button>
+                        <button id="home-btn" class="primary-button"> <a href="#top-section">Back to Home</a></button>
                     </div>
                 </div>
             </section>
