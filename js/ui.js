@@ -91,3 +91,57 @@ class UI {
     this.handleOptionClick = handler;
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Language selector logic
+    const languageBtn = document.getElementById('language-selector-btn');
+    const languageSelection = document.querySelector('.language-selection');
+    const languageList = document.querySelector('.language-list');
+    const dashboardView = document.getElementById('dashboard-view');
+    const translationView = document.getElementById('translation-view');
+
+    // Toggle language dropdown
+    languageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageBtn.classList.toggle('active');
+        languageSelection.classList.toggle('active');
+    });
+
+    // Handle language selection
+    languageList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'LI') {
+            const selectedLang = e.target.dataset.lang;
+            const currentLangSpan = languageBtn.querySelector('.current-language');
+            
+            document.querySelectorAll('.language-list li').forEach(li => {
+                li.classList.remove('selected');
+            });
+            e.target.classList.add('selected');
+            currentLangSpan.textContent = e.target.textContent;
+            
+            // Close dropdown
+            languageBtn.classList.remove('active');
+            languageSelection.classList.remove('active');
+
+            // Update translation language
+            if (document.getElementById('translate-language')) {
+                document.getElementById('translate-language').value = selectedLang;
+            }
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        languageBtn.classList.remove('active');
+        languageSelection.classList.remove('active');
+    });
+
+    // Level selection handling
+    const levelButtons = document.querySelectorAll('.level-btn');
+    levelButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            levelButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+});

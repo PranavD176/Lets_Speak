@@ -13,14 +13,26 @@
     <div class="app-container">
         <header class="app-header">
             <div class="logo">
-                <img src="./assets/duolingo.svg" alt="duolingo" >
+                <img src="./assets/duolingo.svg" alt="duolingo">
                 <h1>Linguify</h1>
             </div>
             <nav class="main-nav">
-                <button id="language-selector-btn" class="nav-button">
-                    <span class="current-language">English</span>
-                    <span class="dropdown-icon">▼</span>
-                </button>
+                <div class="language-selector">
+                    <button id="language-selector-btn" class="nav-button">
+                        <span class="current-language">English</span>
+                        <span class="dropdown-icon">▼</span>
+                    </button>
+                    <div class="language-selection">
+                        <ul class="language-list">
+                            <li data-lang="spanish" class="selected">Spanish</li>
+                            <li data-lang="french">French</li>
+                            <li data-lang="german">German</li>
+                            <li data-lang="italian">Italian</li>
+                            <li data-lang="portuguese">Portuguese</li>
+                            <li data-lang="japanese">Japanese</li>
+                        </ul>
+                    </div>
+                </div>
                 <button id="toggle-theme-btn" class="nav-button">
                     <span class="icon">🌙</span>
                 </button>
@@ -178,6 +190,7 @@
 
     <!-- Scripts -->
     <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
     <script src="js/languages.js"></script>
     <script src="js/quiz.js"></script>
     <script src="js/progress.js"></script>

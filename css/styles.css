@@ -99,6 +99,47 @@ body {
   color: white;
 }
 
+/* Navigation and dropdown styles */
+.language-selection {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 200px;
+  z-index: 1000;
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.language-selection.active {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.language-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.language-list li {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.language-list li:hover {
+  background: var(--background-color);
+}
+
+.language-list li.selected {
+  background: var(--primary-color);
+  color: white;
+}
+
 /* Dashboard/Welcome styles */
 .dashboard-header {
   text-align: center;
@@ -119,7 +160,7 @@ body {
 
 .stats-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
@@ -158,6 +199,7 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .level-selection h3 {
@@ -171,6 +213,7 @@ body {
   display: flex;
   gap: 1rem;
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .level-btn {
@@ -187,7 +230,7 @@ body {
   max-width: 200px;
 }
 
-.level-btn:hover {
+.level-btn:hover, .level-btn.active {
   background: var(--primary-color);
   color: white;
   transform: translateY(-3px);
@@ -202,6 +245,7 @@ body {
   max-width: 800px;
   margin: 2rem auto;
   border: 1px solid var(--border-color);
+  margin-top: 2rem;
 }
 
 .translation-container h2 {
@@ -216,6 +260,8 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  gap: 1rem;
+  margin: 1.5rem 0;
 }
 
 .translation-input textarea {
@@ -231,6 +277,13 @@ body {
   color: var(--text-color);
   transition: all 0.3s ease;
   box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background-color);
+  color: var(--text-color);
+  min-height: 100px;
+  resize: vertical;
 }
 
 .translation-input textarea:focus {
@@ -592,6 +645,18 @@ body {
   .start-learning-btn {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .level-buttons {
+    flex-direction: column;
+  }
+
+  .translation-input {
+    gap: 0.8rem;
   }
 }
 
