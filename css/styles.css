@@ -56,6 +56,17 @@ body {
   box-shadow: var(--shadow);
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
 .logo h1 {
   margin: 0;
   font-size: 2rem;
@@ -474,6 +485,39 @@ body {
   color: white;
 }
 
+/* Start Learning Button styles */
+.start-learning-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  background: var(--background-color);
+}
+
+.start-learning-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.start-learning-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.start-learning-btn .icon {
+  font-size: 1.4rem;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .app-main {
@@ -515,10 +559,6 @@ body {
     padding: 1rem;
   }
 
-  .logo h1 {
-    font-size: 1.5rem;
-  }
-
   .results-container {
     margin: 1rem;
     padding: 1.5rem;
@@ -547,6 +587,11 @@ body {
 
   .results-actions button {
     width: 100%;
+  }
+
+  .start-learning-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
   }
 }
 
