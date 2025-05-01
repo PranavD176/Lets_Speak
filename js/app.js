@@ -258,3 +258,4 @@ document.addEventListener('DOMContentLoaded', () => {
       ui.showView('results');
   }
 });
+// Add any additional event listeners or initialization code here
