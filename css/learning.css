@@ -143,6 +143,7 @@ button:disabled {
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
